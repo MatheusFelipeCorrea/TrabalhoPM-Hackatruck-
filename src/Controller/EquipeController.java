@@ -4,7 +4,6 @@ package src.Controller;
 
 import src.Model.Equipe;
 import src.Model.Estudante;
-import src.Model.Universidade;
 import src.Model.EquipesSingleton;
 
 public class EquipeController {
