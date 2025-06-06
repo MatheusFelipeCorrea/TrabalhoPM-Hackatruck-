@@ -13,29 +13,29 @@ public class Main {
         ProjetoController projetoCtrl = new ProjetoController();
         ApresentacaoController apresentacaoCtrl = new ApresentacaoController();
 
-        // Criando universidades
+        // criando as universidades
         Universidade puc = new Universidade("PUC Minas", "1234567890001");
         Universidade ufmg = new Universidade("UFMG", "9876543210001");
 
-        // Criando equipes
+        // criando as equipes
         Equipe equipe1 = equipeCtrl.criarEquipe("Alpha");
         Equipe equipe2 = equipeCtrl.criarEquipe("Beta");
 
-        // Adicionando estudantes às equipes
+        // adicionando os estudantes nas equipes
         for (int i = 1; i <= 5; i++) {
             equipeCtrl.adicionarEstudante(equipe1, new Estudante("Aluno A" + i, "1111111111" + i, puc, "A" + i));
             equipeCtrl.adicionarEstudante(equipe2, new Estudante("Aluno B" + i, "2222222222" + i, ufmg, "B" + i));
         }
 
-        // Criando orientadores
+        // criar os orientadores
         Profissional orientador1 = new Profissional("Prof. João", "33333333333", puc, "Orientador");
         Profissional orientador2 = new Profissional("Prof. Maria", "44444444444", ufmg, "Orientadora");
 
-        // Criando projetos
+        // criando os projetos
         Projeto projeto1 = projetoCtrl.criarProjeto(orientador1, equipe1, "Sistema de Votação", "Projeto para eleições online");
         Projeto projeto2 = projetoCtrl.criarProjeto(orientador2, equipe2, "App de Eventos", "Aplicativo para gestão de eventos");
 
-        // Criando bancas
+        // criando as bancas
         Banca banca1 = new Banca();
         Banca banca2 = new Banca();
 
@@ -44,7 +44,7 @@ public class Main {
             banca2.adicionarJurado("Jurado B" + i, ufmg, "Avaliador", "6666666666" + i);
         }
 
-        // Simulando notas dos jurados
+        // simulando notas dos jurados
         for (Jurado j : banca1.getJurados()) {
             banca1.setNota(j, (int) (Math.random() * 3 + 7)); // entre 7 e 9
         }
@@ -52,27 +52,36 @@ public class Main {
             banca2.setNota(j, (int) (Math.random() * 3 + 6)); // entre 6 e 8
         }
 
-        // Criando salas
+        // criando as salas
         Sala sala1 = new Sala("101", 30);
         Sala sala2 = new Sala("102", 25);
 
-        // Criando apresentações
+        // criar as apresentações
         Apresentacao ap1 = apresentacaoCtrl.criarApresentacao(projeto1, banca1, sala1, LocalDateTime.now());
         Apresentacao ap2 = apresentacaoCtrl.criarApresentacao(projeto2, banca2, sala2, LocalDateTime.now().plusHours(1));
 
-        // Avaliando projetos
+        // avaliar os projetos
         apresentacaoCtrl.avaliarProjeto(ap1);
         apresentacaoCtrl.avaliarProjeto(ap2);
 
-        // Listar projetos aprovados
+        // listar  os projetos que foram aprovados
         System.out.println("PROJETOS APROVADOS:");
         List<Projeto> aprovados = EquipesSingleton.getInstancia().listarProjetosAprovados();
         for (Projeto p : aprovados) {
             System.out.printf("- %s (Nota: %.2f)\n", p.getTitulo(), p.getNotaFinal());
         }
 
+        //listar projetos não foram aprovados
+
+        System.out.println("\nPROJETOS REPROVADOS:");
+        List<Projeto> reprovados = EquipesSingleton.getInstancia().listarProjetosReprovados();
+        for (Projeto p : reprovados) {
+            System.out.printf("- %s (Nota: %.2f)\n", p.getTitulo(), p.getNotaFinal());
+        }
+
+
         //Nome dos integrantes do trabalho
 
-        System.out.println("Feito por: Matheus Felipe Correa e Alice Shikida");
+        System.out.println("\n Feito por: Matheus Felipe Correa e Alice Shikida");
     }
 }

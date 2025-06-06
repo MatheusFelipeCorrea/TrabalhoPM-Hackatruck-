@@ -34,4 +34,11 @@ public class EquipesSingleton {
                 .filter(Projeto::isAprovado)
                 .collect(Collectors.toList());
     }
+
+    public List<Projeto> listarProjetosReprovados() {
+        return ApresentacoesSingleton.getInstancia().getApresentacoes().stream()
+                .map(Apresentacao::getProjeto)
+                .filter(p -> !p.isAprovado())
+                .collect(Collectors.toList());
+    }
 }
